@@ -218,3 +218,11 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# KiCad
+*-backups/
+fp-info-cache
+*.kicad_prl
+*.lck
+# Ảnh kiểm tra tạm
+islands.png
