@@ -224,5 +224,7 @@ __marimo__/
 fp-info-cache
 *.kicad_prl
 *.lck
+.history/
+
 # Ảnh kiểm tra tạm
 islands.png
