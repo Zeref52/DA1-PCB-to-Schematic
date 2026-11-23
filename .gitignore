@@ -228,3 +228,8 @@ fp-info-cache
 
 # Ảnh kiểm tra tạm
 islands.png
+
+#APi
+schematic.svg
+result.json
+*.zip
