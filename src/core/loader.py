@@ -2,16 +2,23 @@
 Nhận diện lớp bằng thuộc tính X2 '.FileFunction' ghi trong file (không phụ thuộc tên file)."""
 import csv
 import warnings
-warnings.filterwarnings('ignore', category=SyntaxWarning, module='gerbonara')
 from pathlib import Path
 from gerbonara import GerberFile, ExcellonFile
 
+warnings.filterwarnings('ignore', category=SyntaxWarning, module='gerbonara')
+
 
 def load_board(folder):
-    """Trả về dict gồm lớp đồng mặt trên/dưới, danh sách lỗ khoan và linh kiện từ .pos."""
+    """Trả về dict gồm lớp đồng mặt trên/dưới, lỗ khoan, linh kiện (.pos) và viền courtyard."""
     folder = Path(folder)
     top = bottom = None
+    courtyards = {'top': None, 'bottom': None}            # viền courtyard của footprint (nếu có xuất)
     for path in sorted(folder.glob('*.gbr')):
+        name = path.name.lower()
+        if 'courtyard' in name:
+            side = 'bottom' if 'b_courtyard' in name or 'b.courtyard' in name else 'top'
+            courtyards[side] = GerberFile.open(path)
+            continue
         g = GerberFile.open(path)
         func = g.file_attrs.get('.FileFunction', ())     # ví dụ ('Copper', 'L1', 'Top')
         if func and func[0] == 'Copper':
@@ -30,7 +37,8 @@ def load_board(folder):
 
     pos_files = list(folder.glob('*pos*.csv')) + list(folder.glob('*.pos'))
     components = load_pos(pos_files[0]) if pos_files else []
-    return {'top': top, 'bottom': bottom, 'drills': drills, 'components': components}
+    return {'top': top, 'bottom': bottom, 'drills': drills, 'components': components,
+            'courtyards': courtyards}
 
 
 def load_pos(path):

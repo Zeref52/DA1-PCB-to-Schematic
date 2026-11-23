@@ -1,4 +1,4 @@
-"""Bước 5: Đo độ chính xác. Đáp án lấy từ thuộc tính netlist X2 (TO.N) KiCad ghi trong Gerber.
+"""Bước 5: Đo độ chính xác. Đáp án lấy từ thuộc tính netlist X2 (TO.N, TO.P) KiCad ghi trong Gerber.
 Thuật toán ở netlist.py KHÔNG đọc các thuộc tính này; chỉ file này đọc để chấm điểm."""
 from itertools import combinations
 
@@ -11,6 +11,26 @@ def ground_truth(gerber_files):
             if type(obj).__name__ == 'Flash' and '.N' in obj.attrs and '.P' in obj.attrs:
                 truth[(round(obj.x, 4), round(obj.y, 4), side)] = obj.attrs['.N'][0]
     return truth
+
+
+def component_truth(gerber_files):
+    """{(x, y, side): tên_linh_kiện_thật} lấy từ %TO.P% (ví dụ 'R1')."""
+    truth = {}
+    for side, g in gerber_files.items():
+        for obj in g.objects:
+            if type(obj).__name__ == 'Flash' and '.P' in obj.attrs:
+                truth[(round(obj.x, 4), round(obj.y, 4), side)] = obj.attrs['.P'][0]
+    return truth
+
+
+def component_accuracy(result, comp_truth):
+    """Tỷ lệ pad được gán đúng linh kiện.
+    Chỉ xét pad thuộc linh kiện có trong file .pos (bỏ qua lỗ bắt vít... vốn không có trong .pos)."""
+    known = {c['ref'] for c in result['components']}
+    pairs = [(p['ref'], comp_truth[(p['x'], p['y'], p['side'])]) for p in result['pads']
+             if (p['x'], p['y'], p['side']) in comp_truth
+             and comp_truth[(p['x'], p['y'], p['side'])] in known]
+    return sum(a == b for a, b in pairs) / len(pairs) if pairs else 1.0
 
 
 def score(result, truth):

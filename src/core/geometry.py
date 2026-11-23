@@ -1,8 +1,7 @@
 """Bước 2: Biến các đối tượng Gerber (đường mạch, pad, vùng đồng) thành đa giác shapely."""
 import gerbonara.graphic_primitives as gp
 from shapely.geometry import Polygon, LineString
-from shapely.ops import unary_union
-
+from shapely.ops import unary_union, polygonize
 
 def primitive_to_polygon(prim):
     """Một 'primitive' (hình cơ bản) của gerbonara -> 1 đa giác shapely, đơn vị mm."""
@@ -45,3 +44,19 @@ def extract_pads(gerber, side):
             continue
         pads.append({'x': round(obj.x, 4), 'y': round(obj.y, 4), 'side': side, 'function': func})
     return pads
+
+
+def courtyard_polygons(gerber):
+    """Ghép các nét vẽ (đường thẳng, cung) của lớp Courtyard thành các đa giác khép kín.
+    Mỗi đa giác là vùng chiếm chỗ của 1 footprint."""
+    if gerber is None:
+        return []
+    segments = []
+    for obj in gerber.objects:
+        kind = type(obj).__name__
+        lines = obj.approximate() if kind == 'Arc' else [obj] if kind == 'Line' else []
+        for ln in lines:                               # cung được xấp xỉ bằng nhiều đoạn thẳng nhỏ
+            segments.append(LineString([(round(ln.x1, 4), round(ln.y1, 4)), (round(ln.x2, 4), round(ln.y2, 4))]))
+    if not segments:
+        return []
+    return [poly for poly in polygonize(unary_union(segments)) if poly.area > 0.01]
