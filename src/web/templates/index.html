@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Demo PCB to Schematic</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <h1>Demo Phần mềm hỗ trợ vẽ schematic từ PCB</h1>
+
+  <section>
+    <label for="fileInput">Chọn file ZIP PCB:</label>
+    <input type="file" id="fileInput" accept=".zip" />
+    <button id="analyzeBtn">Phân tích</button>
+  </section>
+
+  <section id="metrics" style="margin-top: 20px;"></section>
+
+  <section id="components" style="margin-top: 20px;">
+    <h3>Danh sách linh kiện</h3>
+    <table>
+      <thead><tr><th>ref</th><th>value</th><th>footprint</th></tr></thead>
+      <tbody id="componentsBody"></tbody>
+    </table>
+  </section>
+
+  <section id="nets" style="margin-top: 20px;">
+    <h3>Danh sách net</h3>
+    <table>
+      <thead><tr><th>Net</th><th>Chân pin</th></tr></thead>
+      <tbody id="netsBody"></tbody>
+    </table>
+  </section>
+
+  <section id="pcbImages" style="margin-top: 20px;">
+    <h3>Ảnh PCB</h3>
+    <button id="btnTop">Mặt Top</button>
+    <button id="btnBottom">Mặt Bottom</button>
+    <div id="pcbSVGContainer"></div>
+  </section>
+
+  <section id="schematic" style="margin-top: 20px;">
+    <h3>Schematic</h3>
+    <div id="schematicSVGContainer"></div>
+  </section>
+
+  <section id="error" style="color: red; font-weight: bold; margin-top: 20px;"></section>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
