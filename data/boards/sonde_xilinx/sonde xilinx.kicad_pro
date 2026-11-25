@@ -549,7 +549,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "sonde xilinx.net",
-      "plot": "/gerber",
+      "plot": "gerber/",
       "pos_files": "",
       "specctra_dsn": "",
       "step": "",

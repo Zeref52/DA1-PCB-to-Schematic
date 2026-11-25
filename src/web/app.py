@@ -9,6 +9,11 @@ from src.schematic.render import render_svg
 
 app = Flask(__name__)
 
+from flask import render_template
+
+@app.get('/')
+def index():
+    return render_template('index.html')
 
 @app.post('/api/analyze')
 def analyze():
