@@ -1,55 +1,54 @@
 body {
   font-family: Arial, sans-serif;
-  margin: 30px;
+  margin: 10px 30px 30px 30px; 
   background: #fafafa;
   color: #333;
 }
- 
+
 h1, h3 {
   color: #0055aa;
 }
- 
+
 section {
   margin-top: 20px;
 }
- 
+
 #error {
   color: red;
   font-weight: bold;
 }
- 
+
 #status {
   margin-left: 10px;
   color: #666;
 }
- 
+
 table {
   border-collapse: collapse;
   width: 100%;
   margin-top: 8px;
 }
- 
+
 th, td {
   border: 1px solid #ccc;
   padding: 6px 10px;
   text-align: left;
 }
- 
+
 #netsBody tr {
   cursor: pointer;
 }
- 
+
 #netsBody tr:hover {
   background: #eef4ff;
 }
- 
+
 #netsBody tr.selected {
   background: #ffe1e1;
   font-weight: bold;
 }
- 
+
 button {
-  margin-right: 10px;
   padding: 6px 12px;
   cursor: pointer;
   background-color: #0055aa;
@@ -57,21 +56,105 @@ button {
   border: none;
   border-radius: 4px;
 }
- 
+
 button:hover {
   background-color: #003d80;
 }
- 
+
 button.active {
   background-color: #e67e00;
 }
- 
+
 button:disabled {
   background-color: #999;
   cursor: wait;
 }
- 
-#pcbSVGContainer, #schematicSVGContainer {
+
+#pcbAndNets {
+  display: flex;
+  gap: 20px;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0; 
+  padding-left: 0;
+}
+
+#pcbImages {
+  flex: 3;
+}
+
+#nets {
+  flex: 1;
+  height: 700px;
+  display: flex;
+  flex-direction: column;
+}
+
+#nets > h3 {
+  flex-shrink: 0;
+  padding-bottom: 5px;
+  margin: 0 0 10px 0;
+  border-bottom: 1px solid #ccc;
+  background: white;
+  position: static;
+  top: 0;
+  z-index: 10;
+  height: 40px;
+  line-height: 40px;
+}
+
+#netsButtons {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+  margin-top: 10px; 
+  margin-bottom: 10px;
+  padding-left: 10px;
+  box-sizing: border-box;
+}
+
+#netsButtons button {
+  padding: 6px 12px;
+}
+
+#netsContent {
+  flex-grow: 1;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  background: white;
+  padding: 10px;
+  box-sizing: border-box;
+  min-height: 0;
+  padding-top: 10px; 
+}
+
+#netsContent table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Khung ảnh PCB */
+#pcbSVGContainer {
+  border: 1px solid #ddd;
+  background: white;
+  padding: 10px;
+  margin-top: 10px;
+  width: 100%;
+  height: 600px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Ảnh PCB fit khung */
+#pcbSVGContainer svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Khung schematic */
+#schematicSVGContainer {
   border: 1px solid #ddd;
   background: white;
   padding: 10px;
@@ -79,13 +162,7 @@ button:disabled {
   max-height: 600px;
   overflow: auto;
 }
- 
-/* Ảnh PCB co giãn theo bề rộng khung */
-#pcbSVGContainer svg {
-  width: 100%;
-  height: auto;
-}
- 
+
 /* Chấm đỏ tô sáng chân của net đang chọn */
 .hl {
   fill: red;

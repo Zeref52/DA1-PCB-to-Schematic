@@ -4,29 +4,49 @@
   <meta charset="UTF-8" />
   <title>Demo PCB to Schematic</title>
   <link rel="stylesheet" href="/static/style.css" />
+  <link rel="stylesheet" href="/static/custom.css" />
 </head>
 <body>
   <h1>Demo Phần mềm hỗ trợ vẽ schematic từ PCB</h1>
- 
+
   <section>
     <label for="fileInput">Chọn file ZIP PCB:</label>
     <input type="file" id="fileInput" accept=".zip" />
     <button id="analyzeBtn">Phân tích</button>
     <span id="status"></span>
   </section>
- 
+
   <section id="error"></section>
- 
+
   <section id="metrics"></section>
- 
-  <section id="pcbImages">
-    <h3>Ảnh PCB <span id="selectedNet"></span></h3>
-    <button id="btnTop">Mặt Top</button>
-    <button id="btnBottom">Mặt Bottom</button>
-    <button id="btnClear">Bỏ tô sáng</button>
-    <div id="pcbSVGContainer"></div>
+
+  <!-- Wrapper chứa ảnh PCB và danh sách net ngang hàng -->
+  <section id="pcbAndNets">
+    <section id="pcbImages">
+      <h3>Ảnh PCB <span id="selectedNet"></span></h3>
+      <button id="btnTop">Mặt Top</button>
+      <button id="btnBottom">Mặt Bottom</button>
+      <button id="btnClear">Bỏ tô sáng</button>
+      <div id="pcbSVGContainer"></div>
+    </section>
+
+    <section id="nets">
+      <h3>Danh sách net <small>(bấm vào một net để tô sáng trên ảnh PCB)</small></h3>
+      
+      <div id="netsButtons">
+        <button id="btnJson">Tải netlist (JSON)</button>
+        <button id="btnCsv">Tải netlist (CSV)</button>
+      </div>
+      
+      <div id="netsContent">
+        <table>
+          <thead><tr><th>Net</th><th>Số chân</th><th>Các chân</th></tr></thead>
+          <tbody id="netsBody"></tbody>
+        </table>
+      </div>
+    </section>
   </section>
- 
+
   <section id="components">
     <h3>Danh sách linh kiện</h3>
     <table>
@@ -34,22 +54,12 @@
       <tbody id="componentsBody"></tbody>
     </table>
   </section>
- 
-  <section id="nets">
-    <h3>Danh sách net <small>(bấm vào một net để tô sáng trên ảnh PCB)</small></h3>
-    <button id="btnJson">Tải netlist (JSON)</button>
-    <button id="btnCsv">Tải netlist (CSV)</button>
-    <table>
-      <thead><tr><th>Net</th><th>Số chân</th><th>Các chân</th></tr></thead>
-      <tbody id="netsBody"></tbody>
-    </table>
-  </section>
- 
+
   <section id="schematic">
     <h3>Schematic</h3>
     <div id="schematicSVGContainer"></div>
   </section>
- 
+
   <script src="/static/app.js"></script>
 </body>
 </html>
