@@ -184,3 +184,22 @@ button:disabled {
   margin-right: 0;
   padding-right: 10px;
 }
+
+/* Khung anh PCB khi chua co ket qua phan tich */
+#pcbSVGContainer.empty {
+  height: 1px;  
+  overflow: hidden;
+  background: #f9f9f9;
+  border: 1px solid #ccc;
+  padding: 10px;
+  display: flex;
+}
+/* Khung net khi  chua co ket qua phan tich  */
+#nets.empty {
+  height: 110px; 
+  overflow: hidden;
+  background: #f9f9f9;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-sizing: border-box;
+}
