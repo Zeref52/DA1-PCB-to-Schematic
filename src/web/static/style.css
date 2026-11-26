@@ -4,22 +4,50 @@ body {
   background: #fafafa;
   color: #333;
 }
-
+ 
 h1, h3 {
   color: #0055aa;
 }
-
+ 
+section {
+  margin-top: 20px;
+}
+ 
+#error {
+  color: red;
+  font-weight: bold;
+}
+ 
+#status {
+  margin-left: 10px;
+  color: #666;
+}
+ 
 table {
   border-collapse: collapse;
   width: 100%;
+  margin-top: 8px;
 }
-
+ 
 th, td {
   border: 1px solid #ccc;
   padding: 6px 10px;
   text-align: left;
 }
-
+ 
+#netsBody tr {
+  cursor: pointer;
+}
+ 
+#netsBody tr:hover {
+  background: #eef4ff;
+}
+ 
+#netsBody tr.selected {
+  background: #ffe1e1;
+  font-weight: bold;
+}
+ 
 button {
   margin-right: 10px;
   padding: 6px 12px;
@@ -29,16 +57,39 @@ button {
   border: none;
   border-radius: 4px;
 }
-
+ 
 button:hover {
   background-color: #003d80;
 }
-
+ 
+button.active {
+  background-color: #e67e00;
+}
+ 
+button:disabled {
+  background-color: #999;
+  cursor: wait;
+}
+ 
 #pcbSVGContainer, #schematicSVGContainer {
   border: 1px solid #ddd;
   background: white;
   padding: 10px;
   margin-top: 10px;
-  max-height: 500px;
+  max-height: 600px;
   overflow: auto;
+}
+ 
+/* Ảnh PCB co giãn theo bề rộng khung */
+#pcbSVGContainer svg {
+  width: 100%;
+  height: auto;
+}
+ 
+/* Chấm đỏ tô sáng chân của net đang chọn */
+.hl {
+  fill: red;
+  fill-opacity: 0.75;
+  stroke: darkred;
+  stroke-width: 0.2;
 }
